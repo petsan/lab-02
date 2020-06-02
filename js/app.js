@@ -1,14 +1,16 @@
 'use strict'
 
-let allDogs = [];
+let allHorns = [];
 
-function Dog(obj){
-  this.name = obj.name;
-  this.hobbies = obj.hobbies;
+function Horns(obj){
+  this.title = obj.title;
+  this.description = obj.description;
   this.image_url = obj.image_url;
-  allDogs.push(this);
+  this.keyword = obj.keyword;
+
+  allHorns.push(this);
 }
-Dog.prototype.render = function(){
+Horns.prototype.render = function(){
   // I need to render the object instances to the index page
     // prototype -
      // get my template
@@ -17,40 +19,43 @@ Dog.prototype.render = function(){
      // append it to the DOM
 
   //selecting all the htl in the template
-  const myTemplate = $('#dog-template').html();
+  const myTemplate = $('#photo-template').html();
 
   //creat a new section
-  const $newSection = $('<section></section');
+  // const $newSection = $('<section></section>');
+  const $newSection = $(`<section>${myTemplate}</section>`);
 
   //fill new section with the html template
-  $newSection(myTemplate);
+  // $newSection(myTemplate);
 
   //fill this with my object instance
-  $newSection(myTemplate);
+  // $newSection(myTemplate);
 
   //fill the h2 with the name
-  $newSection.find('h2').text(this.name);
+  $newSection.find('h2').text(this.title);
 
   //fill the p with the hobbies
-  $newSection.find('p').text(this.hobbies);
+  $newSection.find('p').text(this.description);
 
   //fill the src of the im to the image_url
   $newSection.find('img').attr('src', this.image_url);
+
+  // $newSection.find('.keyword').text(this.keyword);
 
   // append to the DOM
   $('main').append($newSection);
 }
 
 //get data and make new object instances with it
-$.ajax('page-1.json', {method: 'GET', dataType: 'JSON'})
-  .then(dogs => {
+$.ajax('/data/page-1.json', {method: 'GET', dataType: 'JSON'})
+  .then(horns => {
 
     // do something with that data
     // data only exists here
-    console.log(dogs)
+    console.log(horns)
 
-    dogs.foreach(value => {
-      new Dog(value).render();
+    horns.forEach(value => {
+      new Horns(value).render();
     });
   })
 
