@@ -1,15 +1,34 @@
 'use strict'
 
 let allHorns = [];
+let keywords = [];
 
 function Horns(obj){
   this.title = obj.title;
   this.description = obj.description;
   this.image_url = obj.image_url;
   this.keyword = obj.keyword;
+  this.horns = obj.horns
 
   allHorns.push(this);
+  if(!keywords.includes(this.keyword)){
+    keywords.push(this.keyword);
+  }
 }
+console.log(keywords)
+// const distinctKeywords = [...new Set(allHorns.map(x => x.keyword))]
+
+// console.log(distinctKeywords)
+
+// Horns.prototype.addkeyword = function(){
+//   if(keywords.includes(this.keyword)){
+//     keywords.push(this.keyword)
+//   }
+// }
+
+//$keywords
+
+
 Horns.prototype.render = function(){
   // I need to render the object instances to the index page
     // prototype -
