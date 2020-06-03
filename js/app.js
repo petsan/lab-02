@@ -25,16 +25,6 @@ Horns.prototype.render = function(){
   $('main').append($newSection);
 }
 
-
-
-
-// section[0].hide();
-// section[2].hide();
-// section[5].hide();
-
-// $('select')
-
-
 $.ajax('data/page-1.json', {method: 'GET', dataType: 'JSON'})
   .then(horns => {
     horns.forEach(value => {
@@ -47,10 +37,6 @@ $.ajax('data/page-1.json', {method: 'GET', dataType: 'JSON'})
     })
   });
 
-// const eventHandler = event => {
-//   console.log('clicked');
-//   console.log(event)
-// }
 
 $('select').on('change', function() {
   let $variable = $(this).val();
