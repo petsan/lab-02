@@ -19,20 +19,18 @@ function Horns(obj){
 Horns.prototype.render = function(){
   const myTemplate = $('#photo-template').html();
   const $newSection = $(`<section class="${this.keyword}">${myTemplate}</section>`);
+  //replace with mustash
   $newSection.find('h2').text(this.title);
   $newSection.find('p').text(this.description);
   $newSection.find('img').attr('src', this.image_url);
   $('main').append($newSection);
 }
 
-let pageOne = 'data/page-1.json';
-
-let pageTwo = 'data/page-2.json';
-
+let page = 'data/page-1.json';
 
 
 let pageLoad = function() {
-  $.ajax(`${pageOne}`, {method: 'GET', dataType: 'JSON'})
+  $.ajax(`${page}`, {method: 'GET', dataType: 'JSON'})
     .then(horns => {
       horns.forEach(value => {
         new Horns(value).render();
@@ -46,9 +44,6 @@ let pageLoad = function() {
 }
 
 
-
-
-
 $('select').on('change', function() {
   let $variable = $(this).val();
   if ($variable === 'default') {
@@ -59,21 +54,38 @@ $('select').on('change', function() {
   }
 });
 
-$('#togglePage').on('click' , function() {
-  if(event.target.value === 'page2'){
-    pageOne = pageTwo
+$('#togglePage1').on('click' , function() {
+  if(event.target.value === 'data/page-1.json'){
+    // pageOne = pageTwo
+    page = 'data/page-2.json'
     pageLoad();
-    console.log(pageOne)
+    console.log(event.target.value)
   }
-  console.log(event.target.value) ;
-}
+})
+
+$('#togglePage2').on('click' , function() {
+  if(event.target.value === 'data/page-2.json'){
+    // pageOne = pageTwo
+    page = 'data/page-2.json'
+    pageLoad();
+    console.log(event.target.value)
+  }
+})
+
+  // else if (event.target.value === 'data/page-1.json'){
+  //   pageOne = event.target.value;
+
+  //   console.log(event.target.value)
+  //   pageLoad();
+  // }
+
 // function() {
 //   console.log(pageTwo)
 // }
-)
+
 // need if else
 //if event.target = page2, chnage path in ajax call
 //make filepath in ajax a template literal
 pageLoad();
 //if target value = page1, reload page 1
-//need to clear the old render and replace with new images. 
+//need to clear the old render and replace with new images.
