@@ -63,5 +63,3 @@ $(document).ready( () => {
   // $('main').clear();
   pageLoad(page);
 });
-
-//need to clear the old render and replace with new images.
