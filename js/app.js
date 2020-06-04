@@ -24,6 +24,10 @@ Horns.prototype.render = function(){
 }
 
 const pageLoad = (page) => {
+  $('main').empty();
+  $('select').empty();
+  let defaultOption = $('<option value="default">Filter by Keyword</option>')
+  $('select').append(defaultOption);
   $.ajax(`${page}`, {method: 'GET', dataType: 'JSON'})
     .then(horns => {
       horns.forEach(value => {
@@ -40,10 +44,10 @@ const pageLoad = (page) => {
 $('select').on('change', function() {
   let $variable = $(this).val();
   if ($variable === 'default') {
-    $('section').show();
+    $('div').show();
   } else {
-    $('section').hide();
-    $(`section[class="${$variable}"]`).show();
+    $('div').hide();
+    $(`div[class="${$variable}"]`).show();
   }
 });
 

@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="css/layouts.css">
     <link rel="stylesheet" href="css/modules.css">
     <script id="photos-template" type="text/x-tmpl-mustache">
-      <div>
+      <div class="{{keyword}}">
         <h2>{{title}}</h2>
         <img src="{{image_url}}" alt="">
         <p>{{description}</p>
@@ -22,8 +22,8 @@
       <select id="dropdown">
         <option value="default">Filter by Keyword</option>
       </select>
-      <button type="button" value="data/page-1.json" id="load-page-1"> Load Page 1 </button>
-      <button type="button" value="data/page-2.json" id="load-page-2"> Load Page 2 </button>
+      <button type="button" value="data/page-1.json" id="load-page-1"> Page 1 </button>
+      <button type="button" value="data/page-2.json" id="load-page-2"> Page 2 </button>
     </header>
     <main></main>
     <script src="https://unpkg.com/mustache@latest"></script>
