@@ -28,7 +28,6 @@ Horns.prototype.render = function(){
 
 let page = 'data/page-1.json';
 
-
 let pageLoad = function() {
   $.ajax(`${page}`, {method: 'GET', dataType: 'JSON'})
     .then(horns => {
@@ -43,7 +42,6 @@ let pageLoad = function() {
     })
 }
 
-
 $('select').on('change', function() {
   let $variable = $(this).val();
   if ($variable === 'default') {
@@ -54,38 +52,17 @@ $('select').on('change', function() {
   }
 });
 
-$('#togglePage1').on('click' , function() {
-  if(event.target.value === 'data/page-1.json'){
-    // pageOne = pageTwo
-    page = 'data/page-2.json'
-    pageLoad();
-    console.log(event.target.value)
-  }
+$('#load-page-1').on('click' , function() {
+  page = 'data/page-1.json';
+  console.log('load page 1');
+  pageLoad();
 })
 
-$('#togglePage2').on('click' , function() {
-  if(event.target.value === 'data/page-2.json'){
-    // pageOne = pageTwo
-    page = 'data/page-2.json'
-    pageLoad();
-    console.log(event.target.value)
-  }
+$('#load-page-2').on('click' , function() {
+  page = 'data/page-2.json';
+  console.log('load page 2');
+  pageLoad();
 })
 
-  // else if (event.target.value === 'data/page-1.json'){
-  //   pageOne = event.target.value;
-
-  //   console.log(event.target.value)
-  //   pageLoad();
-  // }
-
-// function() {
-//   console.log(pageTwo)
-// }
-
-// need if else
-//if event.target = page2, chnage path in ajax call
-//make filepath in ajax a template literal
 pageLoad();
-//if target value = page1, reload page 1
 //need to clear the old render and replace with new images.
