@@ -25,17 +25,28 @@ Horns.prototype.render = function(){
   $('main').append($newSection);
 }
 
-$.ajax('data/page-1.json', {method: 'GET', dataType: 'JSON'})
-  .then(horns => {
-    horns.forEach(value => {
-      new Horns(value).render();
+let pageOne = 'data/page-1.json';
+
+let pageTwo = 'data/page-2.json';
+
+
+
+let pageLoad = function() {
+  $.ajax(`${pageOne}`, {method: 'GET', dataType: 'JSON'})
+    .then(horns => {
+      horns.forEach(value => {
+        new Horns(value).render();
+      }) //look for lines 46-52 in demo
+    }).then(()=> {
+      keywords.forEach((keyword) =>{
+        let stuff = `<option value = "${keyword}">${keyword}</option>`
+        $('select').append(stuff);
+      })
     })
-  }).then(()=> {
-    keywords.forEach((keyword) =>{
-      let stuff = `<option value = "${keyword}">${keyword}</option>`
-      $('select').append(stuff);
-    })
-  });
+}
+
+
+
 
 
 $('select').on('change', function() {
@@ -43,7 +54,26 @@ $('select').on('change', function() {
   if ($variable === 'default') {
     $('section').show();
   } else {
-  $('section').hide();
-  $(`section[class="${$variable}"]`).show();
-}
+    $('section').hide();
+    $(`section[class="${$variable}"]`).show();
+  }
 });
+
+$('#togglePage').on('click' , function() {
+  if(event.target.value === 'page2'){
+    pageOne = pageTwo
+    pageLoad();
+    console.log(pageOne)
+  }
+  console.log(event.target.value) ;
+}
+// function() {
+//   console.log(pageTwo)
+// }
+)
+// need if else
+//if event.target = page2, chnage path in ajax call
+//make filepath in ajax a template literal
+pageLoad();
+//if target value = page1, reload page 1
+//need to clear the old render and replace with new images. 
