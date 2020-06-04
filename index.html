@@ -6,14 +6,13 @@
     <link rel="stylesheet" href="css/base.css">
     <link rel="stylesheet" href="css/layouts.css">
     <script id="photos-template" type="text/x-tmpl-mustache">
-
       <div>
       <h2>{{title}}</h2>
-      <img src="" alt="">
-      <p></p>
+      <img src="{{image_url}}" alt="">
+      <p>{{description}</p>
       </div>
+      {{{body}}}
   </script>
-
   </head>
   <body>
     <header>
@@ -22,20 +21,18 @@
         <option value="default">Filter by Keyword</option>
       </select>
       <button type="button" value="data/page-1.json" id="load-page-1"> Load Page 1 </button>
-
       <button type="button" value="data/page-2.json" id="load-page-2"> Load Page 2 </button>
-
     </header>
     <main>
 <!-- when we refactor, main will have an id and nothing in it... -->
-    <section id="photo-template">
+    <!-- <section id="photo-template">
       <h2></h2>
       <img src="" alt="">
       <p></p>
       </section>
-    </main>
-    <script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
+    </main> -->
     <script src="https://unpkg.com/mustache@latest"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
     <script src="js/app.js"></script>
     <footer>
       &copy; 2018 Code Fellows

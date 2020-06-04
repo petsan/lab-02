@@ -2,6 +2,7 @@
 
 let allHorns = [];
 let keywords = [];
+let page = 'data/page-1.json';
 
 function Horns(obj){
   this.title = obj.title;
@@ -17,18 +18,12 @@ function Horns(obj){
 }
 
 Horns.prototype.render = function(){
-  const myTemplate = $('#photo-template').html();
-  const $newSection = $(`<section class="${this.keyword}">${myTemplate}</section>`);
-  //replace with mustash
-  $newSection.find('h2').text(this.title);
-  $newSection.find('p').text(this.description);
-  $newSection.find('img').attr('src', this.image_url);
-  $('main').append($newSection);
+  const template = $('#photos-template').html();
+  const myTemplate = Mustache.render(template, this);
+  $('main').append(myTemplate);
 }
 
-let page = 'data/page-1.json';
-
-let pageLoad = function() {
+const pageLoad = (page) => {
   $.ajax(`${page}`, {method: 'GET', dataType: 'JSON'})
     .then(horns => {
       horns.forEach(value => {
@@ -55,14 +50,18 @@ $('select').on('change', function() {
 $('#load-page-1').on('click' , function() {
   page = 'data/page-1.json';
   console.log('load page 1');
-  pageLoad();
+  pageLoad(page);
 })
 
 $('#load-page-2').on('click' , function() {
   page = 'data/page-2.json';
   console.log('load page 2');
-  pageLoad();
+  pageLoad(page);
 })
 
-pageLoad();
+$(document).ready( () => {
+  // $('main').clear();
+  pageLoad(page);
+});
+
 //need to clear the old render and replace with new images.
