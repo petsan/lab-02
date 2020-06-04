@@ -1,11 +1,15 @@
 img {
-  width: 256px;
+  /* width: 256px; */
   height: 256px;
-  float: left;
+  width: 256px;
   object-fit: cover;
+  border-radius: 25px;
 }
 
-#photo-template, title, h1, h2, p, footer {
+/* #photo-template, title, h1, h2, p, footer {
+  display: none;
+} */
+
+#photo-template, p, footer {
   display: none;
 }
-
