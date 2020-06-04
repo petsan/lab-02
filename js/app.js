@@ -24,22 +24,39 @@ Horns.prototype.render = function(){
 }
 
 const pageLoad = (page) => {
+  //clearing the page
+  allHorns = [];
+  keywords = [];
   $('main').empty();
   $('#dropdown').empty();
+  //making the animal objects
+  makeHorns(page);
+  // here we needs to sort
+
+  //start rendering everything
   let defaultOption = $('<option value="default">Filter by Keyword</option>')
   $('#dropdown').append(defaultOption);
+  console.log('start to process keywords', keywords)
+  keywords.forEach((keyword) =>{
+    let stuff = `<option value = "${keyword}">${keyword}</option>`
+    $('#dropdown').append(stuff);
+  })
+  allHorns.forEach((animal) => {
+    console.log(animal.title);
+    animal.render();
+  })
+}
+
+function makeHorns(page) {
   $.ajax(`${page}`, {method: 'GET', dataType: 'JSON'})
     .then(horns => {
       horns.forEach(value => {
-        new Horns(value).render();
+        new Horns(value);
       }) //look for lines 46-52 in demo
-    }).then(()=> {
-      keywords.forEach((keyword) =>{
-        let stuff = `<option value = "${keyword}">${keyword}</option>`
-        $('#dropdown').append(stuff);
-      })
     })
 }
+
+
 
 $('#dropdown').on('change', function() {
   let $variable = $(this).val();
