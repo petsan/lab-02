@@ -25,9 +25,9 @@ Horns.prototype.render = function(){
 
 const pageLoad = (page) => {
   $('main').empty();
-  $('select').empty();
+  $('#dropdown').empty();
   let defaultOption = $('<option value="default">Filter by Keyword</option>')
-  $('select').append(defaultOption);
+  $('#dropdown').append(defaultOption);
   $.ajax(`${page}`, {method: 'GET', dataType: 'JSON'})
     .then(horns => {
       horns.forEach(value => {
@@ -36,18 +36,42 @@ const pageLoad = (page) => {
     }).then(()=> {
       keywords.forEach((keyword) =>{
         let stuff = `<option value = "${keyword}">${keyword}</option>`
-        $('select').append(stuff);
+        $('#dropdown').append(stuff);
       })
     })
 }
 
-$('select').on('change', function() {
+$('#dropdown').on('change', function() {
   let $variable = $(this).val();
   if ($variable === 'default') {
     $('div').show();
   } else {
     $('div').hide();
     $(`div[class="${$variable}"]`).show();
+  }
+});
+
+const applySortOrder = (sortOrder) => {
+  if (sortOrder === 'sortAlpha') {
+    allHorns.sort((a,b) => { return a.title > b.title ? 1 : -1; });
+  } else if (sortOrder === 'sortNum') {
+    allHorns.sort((a,b) => { return a.horns - b.horns })
+  } else {
+    return allHorns;
+  }
+  return allHorns;
+}
+
+$('#sort-by').on('change', function() {
+  let $variable = $(this).val();
+  if ($variable === 'default') {
+    console.log('default');
+  } else if ($variable === 'alpha'){
+    console.log('alpha');
+    applySortOrder('sortAlpha')
+    pageLoad(page);
+  } else if ($variable === 'num-horns') {
+    console.log('horns')
   }
 });
 
