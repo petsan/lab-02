@@ -19,20 +19,26 @@ function Horns(obj){
 Horns.prototype.render = function(){
   const myTemplate = $('#photo-template').html();
   const $newSection = $(`<section class="${this.keyword}">${myTemplate}</section>`);
-  //replace with mustash
-  $newSection.find('h2').text(this.title);
-  $newSection.find('p').text(this.description);
-  $newSection.find('img').attr('src', this.image_url);
-  $('main').append($newSection);
+  //replace with mustashe
+  // $newSection.find('h2').text(this.title);
+  // $newSection.find('p').text(this.description);
+  // $newSection.find('img').attr('src', this.image_url);
+  let template = $('my-main').html;
+  let html = Mustache.render(template, this);
+  // $('main').append($newSection);
+  return html;
 }
 
 let page = 'data/page-1.json';
 
 let pageLoad = function() {
   $.ajax(`${page}`, {method: 'GET', dataType: 'JSON'})
+    // .then($(`#photo`).empty()) -- this does not work
     .then(horns => {
       horns.forEach(value => {
-        new Horns(value).render();
+        // new Horns(value).render();
+        let hornHtml = value.toHtml();
+        $('').append(hornHtml);
       }) //look for lines 46-52 in demo
     }).then(()=> {
       keywords.forEach((keyword) =>{
