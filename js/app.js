@@ -2,7 +2,8 @@
 
 let allHorns = [];
 let keywords = [];
-let page = 'data/page-1.json';
+let pageNumber = 'data/page-1.json';
+let sortOrder = 'sortAlpha'
 
 const clearArrays = () => {
   allHorns = [];
@@ -59,21 +60,34 @@ $('#load-page-1').on('click' , function() {
 })
 
 $('#load-page-2').on('click' , function() {
-  console.log(allHorns, keywords)
   clearArrays();
-  console.log(allHorns, keywords)
-  page = 'data/page-2.json';
-  pageLoad(page);
+  pageNumber = 'data/page-2.json';
+  pageLoad(pageNumber);
 })
 
-$('#sort').on('click', function(event){
-  console.log(allHorns, keywords)
+$('#sortAlpha').on('click', function(){
   clearArrays();
-  console.log(allHorns, keywords)
-  pageLoad(page)
+  sortOrder = 'sortAlpha';
+  pageLoad(pageNumber);
+})
+
+$('#sortAlpha').on('click', function(){
+  clearArrays();
+  sortOrder = 'sortNum';
+  applySortOrder();
+  pageLoad(pageNumber);
 })
 
 $(document).ready( () => {
-  // $('main').clear();
-  pageLoad(page);
+  pageLoad(pageNumber);
 });
+
+const applySortOrder = (sortOrder) => {
+  if (sortOrder === 'sortAlpha') {
+    allHorns.sort((a,b) => { return a.title > b.title ? 1 : -1; });
+  } else if (sortOrder === 'sortNum') {
+    allHorns.sort((a,b) => { return a.horns - b.horns })
+  } else {
+    return allHorns;
+  }
+}
