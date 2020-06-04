@@ -4,6 +4,11 @@ let allHorns = [];
 let keywords = [];
 let page = 'data/page-1.json';
 
+const clearArrays = () => {
+  allHorns = [];
+  keywords = [];
+}
+
 function Horns(obj){
   this.title = obj.title;
   this.description = obj.description;
@@ -47,16 +52,25 @@ $('select').on('change', function() {
   }
 });
 
+
 $('#load-page-1').on('click' , function() {
-  page = 'data/page-1.json';
-  console.log('load page 1');
-  pageLoad(page);
+  clearArrays();
+  pageLoad('load-page-1');
 })
 
 $('#load-page-2').on('click' , function() {
+  console.log(allHorns, keywords)
+  clearArrays();
+  console.log(allHorns, keywords)
   page = 'data/page-2.json';
-  console.log('load page 2');
   pageLoad(page);
+})
+
+$('#sort').on('click', function(event){
+  console.log(allHorns, keywords)
+  clearArrays();
+  console.log(allHorns, keywords)
+  pageLoad(page)
 })
 
 $(document).ready( () => {
