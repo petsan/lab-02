@@ -24,46 +24,53 @@ Horns.prototype.render = function(){
 }
 
 const pageLoad = (page) => {
-  console.log(page)
-  //clearing the page
-  // allHorns = [];
-  // keywords = [];
-  // $('main').empty();
-  // $('#dropdown').empty();
+  // clearing the page
+  allHorns = [];
+  keywords = [];
+  $('main').empty();
+  $('#dropdown').empty();
+
+  console.log('32' + keywords)
   //making the animal objects
   makeHorns(page);
-  // here we needs to sort
 
+  // here we need to sort
+  console.log('37' + keywords)
   //start rendering everything
-  // let defaultOption = $('<option value="default">Filter by Keyword</option>')
-  // $('#dropdown').append(defaultOption);
+  let defaultOption = $('<option value="default">Filter by Keyword</option>')
+  $('#dropdown').append(defaultOption);
   // $('#dropdown').append(`<option value = "${'hi'}">${'hi'}</option>`);
   // console.log('start to process keywords', keywords);
-
+  console.log('43' + keywords)
+  console.log(page);
+  for (var i = 0; i < keywords.length; i++) {
+    console.log(page);
+  }
   keywords.forEach((keyword) =>{
-    let stuff = $(`<option value = "${keyword}">${keyword}</option>`);
-    $('#dropdown').append(stuff);
-    console.log(keyword);
-  })
-  console.log(keywords)
-  keywords.forEach((key) => {
-    console.log('49' + key);
+    console.log('45' + keyword);
+    // let stuff = $(`<option value = "${keyword}">${keyword}</option>`);
+    // $('#dropdown').append(stuff);
+
   })
 
-  // for (var i = 0; i < keywords.length; i++) {
-  //   console.log(keyword.name);
-  // }
-  // allHorns.forEach((animal) => {
-  //   console.log(animal.title);
-  //   animal.render();
+
+  // console.log(keywords)
+  // keywords.forEach((key) => {
+  //   console.log('49' + key);
   // })
+
+
+  allHorns.forEach((animal) => {
+    console.log(animal.title);
+    animal.render();
+  })
 }
 
 function makeHorns(page) {
   $.ajax(`${page}`, {method: 'GET', dataType: 'JSON'})
     .then(horns => {
       horns.forEach(value => {
-        new Horns(value);
+        new Horns(value).render();
         // console.log(Horns)
       })
     })
@@ -82,14 +89,14 @@ $('#dropdown').on('change', function() {
 });
 
 const applySortOrder = (sortOrder) => {
-  if (sortOrder === 'sortAlpha') {
+ if (sortOrder === 'sortAlpha') {
     allHorns.sort((a,b) => { return a.title > b.title ? 1 : -1; });
   } else if (sortOrder === 'sortNum') {
-    allHorns.sort((a,b) => { return a.horns - b.horns })
+    allHorns.sort((a,b) => { return a.horns - b.horns ? 1 : -1; });
   } else {
     return allHorns;
   }
-  return allHorns;
+  // return allHorns;
 }
 
 $('#sort-by').on('change', function() {
@@ -102,23 +109,21 @@ $('#sort-by').on('change', function() {
     pageLoad(page);
   } else if ($variable === 'num-horns') {
     console.log('horns')
+    applySortOrder('sortAlpha');
+    pageLoad(page);
   }
 });
 
 $('#load-page-1').on('click' , function() {
   page = 'data/page-1.json';
-  console.log('load page 1');
   pageLoad(page);
 })
 
 $('#load-page-2').on('click' , function() {
   page = 'data/page-2.json';
-  console.log('load page 2');
   pageLoad(page);
 })
 
 $(document).ready( () => {
-  // $('main').clear();
-  console.log('i should be the first')
   pageLoad(page);
 });
