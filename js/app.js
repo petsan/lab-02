@@ -24,27 +24,39 @@ Horns.prototype.render = function(){
 }
 
 const pageLoad = (page) => {
+  console.log(page)
   //clearing the page
-  allHorns = [];
-  keywords = [];
-  $('main').empty();
-  $('#dropdown').empty();
+  // allHorns = [];
+  // keywords = [];
+  // $('main').empty();
+  // $('#dropdown').empty();
   //making the animal objects
   makeHorns(page);
   // here we needs to sort
 
   //start rendering everything
-  let defaultOption = $('<option value="default">Filter by Keyword</option>')
-  $('#dropdown').append(defaultOption);
-  console.log('start to process keywords', keywords)
+  // let defaultOption = $('<option value="default">Filter by Keyword</option>')
+  // $('#dropdown').append(defaultOption);
+  // $('#dropdown').append(`<option value = "${'hi'}">${'hi'}</option>`);
+  // console.log('start to process keywords', keywords);
+
   keywords.forEach((keyword) =>{
-    let stuff = `<option value = "${keyword}">${keyword}</option>`
+    let stuff = $(`<option value = "${keyword}">${keyword}</option>`);
     $('#dropdown').append(stuff);
+    console.log(keyword);
   })
-  allHorns.forEach((animal) => {
-    console.log(animal.title);
-    animal.render();
+  console.log(keywords)
+  keywords.forEach((key) => {
+    console.log('49' + key);
   })
+
+  // for (var i = 0; i < keywords.length; i++) {
+  //   console.log(keyword.name);
+  // }
+  // allHorns.forEach((animal) => {
+  //   console.log(animal.title);
+  //   animal.render();
+  // })
 }
 
 function makeHorns(page) {
@@ -52,7 +64,8 @@ function makeHorns(page) {
     .then(horns => {
       horns.forEach(value => {
         new Horns(value);
-      }) //look for lines 46-52 in demo
+        // console.log(Horns)
+      })
     })
 }
 
@@ -106,5 +119,6 @@ $('#load-page-2').on('click' , function() {
 
 $(document).ready( () => {
   // $('main').clear();
+  console.log('i should be the first')
   pageLoad(page);
 });
